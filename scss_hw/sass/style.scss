@@ -1,0 +1,1140 @@
+@import "_normalize.scss";
+
+// Color
+$fontColor: #fff;
+$backgroundColor:#222;
+$noactiveColor: rgba(255,255,255,0.5);
+$primaryColor: #007CED;
+$herolightColor: #252525;
+
+
+// global
+
+* {
+	box-sizing: border-box;
+	position: relative;
+}
+
+html,
+body {
+	height: 100%;
+	font-family: '微軟正黑體', 'Poppins';
+}
+
+.wrapper{
+	display: flex;
+	flex-direction: column;
+	/* 先定義最小高度
+	之後才能用子區塊用flex-grow 將剩餘空間長為1 */
+	min-height: 100vh;
+
+}
+
+h1,h2,h3,
+h4,h5,h6,p{
+	margin: 0;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: $noactiveColor;
+}
+
+@mixin container-stytle{
+  .container {
+  max-width: 1296px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+
+  }
+}
+
+
+// col-xx-xx RWD
+$col: (lg: 100%, md: 820px, sm: 540px);
+$colItem: 12;
+
+@mixin rowCol {
+  @each $name, $value in $col {
+    @for $i from 1 through $colItem {
+      .col-#{$name}-#{$i} {
+        display: flex;
+        flex-direction: column;
+
+        padding-left: 16px;
+        padding-right: 16px;
+
+        @if $name == lg {
+          width: ($i/$colItem * $value);
+        }
+
+        @media screen and (max-width: $value){
+          width: ($i/$colItem * 100%) ;
+
+        }
+      }
+    }
+  }
+}
+
+.row {
+  margin-left: -16px;
+  margin-right: -16px;
+  display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+
+  @include rowCol;
+}
+
+//  RWD setting
+$desktop: 1080px;
+$ipad: 820px;
+$mobile: 540px;
+
+@mixin breakpoint($point) {
+  @if $point == desktop {
+    @media screen and (max-width: $desktop) {
+      @content;
+    }
+  } @else if $point == ipad {
+    @media screen and (max-width: $ipad) {
+      @content;
+    }
+  } @else if $point == mobile {
+    @media screen and (max-width: $mobile) {
+      @content;
+    }
+  } @else if $point == default {
+    @media screen {
+      @content;
+    }
+  }
+}
+
+/* btn */
+@mixin btn-group-stytle{
+  .btn-group {
+    display: flex;
+    justify-content:flex-start;
+    @include breakpoint(ipad) {
+      justify-content: center;
+    }
+    @include breakpoint(mobile){
+      flex-direction: column;
+      align-items: center;
+      flex-wrap: nowrap;
+    }
+    .btn {
+      padding: 10px 32px;
+      margin: 8px 8px;
+
+      color: $fontColor;
+      @include text-type(normal, 20px);
+    }
+
+    .btn.btn-primary {
+      background-color: #333;
+      border: 3px solid #007CED;
+      border-radius: 30px;
+      color: $fontColor;
+    }
+
+    .btn.btn-normal {
+      background-color: #333;
+      border: 3px solid #fff;
+      border-radius: 30px;
+      color:  $fontColor;
+
+    }
+  }
+
+  // useless class
+  .btn-group-center{
+    justify-content: center;
+  }
+}
+
+// front-text
+
+$bold: 700;
+$normal: 400;
+
+@mixin text-type($type, $font-size) {
+  font-family: Poppins;
+  font-size: $font-size;
+  line-height: 35px; // 可以根据需要进行微调
+
+  @if $type == bold {
+    font-weight: $bold;
+  } @else if $type == normal {
+    font-weight: $normal;
+  }
+}
+
+//hero
+@mixin hero-style($padding-top, $padding-bottom, $text-align: null) {
+  padding-top: $padding-top;
+  padding-bottom: $padding-bottom;
+  border-top: 2px solid #333;
+  border-bottom: 2px solid #333;
+
+  @if $text-align {
+    text-align: $text-align;
+  }
+}
+
+// background-image
+
+@mixin background-center {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+//image stytle
+@mixin image-stytle{
+  .image-container {
+    &:before{
+        /* 比例控制 */
+        content: '';
+        display: block;
+        width: 100%;
+        padding-top: 75%;
+    }
+    width: 100%;
+
+    .image{
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+
+      @include background-center;
+    }
+
+    @include breakpoint(ipad){
+      width: 75%;
+      margin: 0 auto;
+    }
+  }
+}
+
+
+
+// headline-box-border
+@mixin headline-box-border($width, $height, $background) {
+  width: $width;
+  height: $height;
+  background: $background;
+  display: inline-flex;
+
+}
+@mixin headline_box_stytle{
+  .headline_box_group{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+    padding-bottom: 20px;
+
+    @include breakpoint(ipad){
+      align-items: center;
+      padding-bottom: 10px;
+
+    }
+
+    .headline_service {
+      color: $fontColor;
+      @include text-type(block, 28px);
+
+      margin-bottom: 5px;
+    }
+
+    // Use the headline-box-border mixin here
+    .headline-box-border-grey {
+      @include headline-box-border(87px, 2px, #353535);
+    }
+
+    .headline-box-border-blue {
+      @include headline-box-border(40px, 2px, $primaryColor);
+      top: 2px;
+      z-index: 2;
+    }
+  }
+}
+
+
+/* skillbar */
+@mixin skill-bar-style {
+  .skill_item {
+    margin-bottom: 30px;
+
+    .skill_group {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 2px;
+
+      .skill_name {
+        color: $fontColor;
+        @include text-type(normal, 18px);
+      }
+
+      .skill_value {
+        color: rgba(255, 255, 255, 0.70);
+        @include text-type(normal, 14px);
+      }
+    }
+
+    .skillbar {
+      height: 12px;
+      width: 100%;
+      border-radius: 8px;
+      border: 2px solid #444;
+      display: flex;
+      align-items: center;
+
+      .skillbar-box-fill {
+        justify-content: center;
+        height: 6px;
+        background: $primaryColor;
+      }
+    }
+  }
+}
+
+// navbar
+.navbar{
+  background: $backgroundColor;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  @include container-stytle;
+  .container{
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav_brand_group{
+    display: flex;
+    align-items: center;
+  }
+  .nav_brand_group{
+    display: flex;
+    align-items: center;
+  }
+  .brand{
+    display: inline-block;
+    vertical-align: middle;
+
+    width: 55px;
+    height: 55px;
+    background-image: url('../images/nav_brand.png');
+
+  @include background-center;
+
+    white-space: nowrap;
+    text-indent: 100%;
+    overflow: hidden;
+  }
+
+  .front_part {
+    color: $fontColor;
+    @include text-type(bold, 30px);
+  }
+
+  .end_part {
+    color: $fontColor;
+    @include text-type(normal, 30px);
+  }
+
+  .nav {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    justify-self: flex-end;
+    align-items: center;
+
+    @include breakpoint(desktop) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .nav-link {
+      color: $noactiveColor;
+      display: block;
+      line-height: 24px;
+      padding: 20px 16px;
+      /* distance 76px */
+      margin: 0 30px;
+
+      transition: color 0.3s;
+      &:hover{
+        color:$fontColor;
+      }
+
+      @include breakpoint($desktop) {
+        text-align: center;
+        padding: 20px;
+      }
+    }
+  }
+
+  .close-btn{
+    display: none;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    right: 16px;
+    top: 8px;
+
+    @include breakpoint(desktop){
+      display: flex;
+      cursor: pointer;
+      position: fixed;
+      right: 16px;
+      top: 8px;
+    }
+  }
+  /* menutoggle */
+  .menu-toggle{
+    width: 48px;
+    height: 48px;
+
+    display: none;
+
+    margin: 8px;
+    @include breakpoint(desktop){
+      display: inline-flex;
+      justify-content: flex-end;
+    }
+  }
+
+}
+
+#popup-menu {
+  @include breakpoint(desktop){
+    display: flex;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: #222;
+		z-index: 1000;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.3s;
+    &:target {
+      opacity: 1;
+      visibility: visible;
+    }
+    .nav {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+  }
+  .nav-item {
+    text-align: center;
+    padding: 16px;
+  }
+
+  .nav-list {
+    display: block;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 35px;
+    margin: 0;
+    transition: color 0.3s;
+    &:hover{
+      color: $fontColor
+    }
+  }
+
+}
+
+// main
+.main {
+  padding-top: 100px;
+	padding-bottom: 100px;
+	width: 100%;
+	background-color: $backgroundColor;
+
+	/* 由前面的warpper母區塊命名min-height
+	才能使用將剩餘區塊用 grow長為1 */
+	flex-grow: 1;
+
+  @include breakpoint(ipad){
+    padding: 0;
+    padding-bottom: 50px;
+  }
+
+  @include container-stytle;
+
+  .row{
+    align-items: center;
+    @include breakpoint(ipad){
+      align-items: center;
+    }
+  }
+
+  .main-preview{
+    @include breakpoint(ipad){
+      margin: 16px;
+      text-align: center;
+    }
+  }
+  @include image-stytle;
+  .image{
+    background-image: url('../images/main_image001.svg');
+  }
+
+  .name_title {
+    color: $noactiveColor;
+    @include text-type(normal, 24px);
+
+    white-space: nowrap;
+    @include breakpoint(ipad){
+    }
+  }
+
+  .title{
+    margin-top: 5%;
+    color: $fontColor;
+    @include text-type(block, 70px);
+
+    @include breakpoint(ipad){
+      font-size: 60px
+    }
+  }
+
+  .para{
+    display: block;
+    margin-top: 5%;
+    margin-bottom: 20px;
+    color: $fontColor;
+    text-align: left;
+    @include text-type(normal, 20px);
+
+    @include breakpoint(ipad){
+      text-align: center;
+      font-size: 16px;
+    }
+  }
+  @include btn-group-stytle;
+}
+
+// front_page
+.front_end_skill{
+  background: $backgroundColor;
+  flex-grow: 1;
+
+  .hero {
+    @include hero-style(100px, 100px);
+
+    @include breakpoint(ipad) {
+      @include hero-style(50px, 50px, center);
+    }
+
+    @include breakpoint(mobile) {
+      @include hero-style(30px, 30px, center);
+    }
+  }
+
+  .hero-light{
+    background-color: $herolightColor;
+  }
+
+  @include container-stytle;
+
+  .page_title{
+    color: $fontColor;
+    @include text-type(block, 55px);
+
+    @include breakpoint (ipad){
+      @include text-type(block, 45px);
+    }
+
+    @include breakpoint (mobile){
+      @include text-type(block, 35px);
+    }
+  }
+
+  .row{
+    padding: 20px;
+    @include breakpoint(ipad) {
+      .front_end_skill .container [class^="col-"] .front-wrapper:last-child{
+        margin-bottom: 40px;
+      }
+    }
+    @include headline_box_stytle;
+  }
+  .front-wrapper{
+    display: inline-flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+    margin-bottom: 20px;
+
+    .front-image{
+      display: flex;
+
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: center;
+
+      img{
+        padding-right: 10px;
+
+        @include background-center;
+      }
+    }
+
+    .front-text-group{
+      display: inline-flex;
+      flex-wrap: nowrap;
+
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+
+      .front_name{
+        color: $fontColor;
+
+        @include text-type(normal, 18px);
+      }
+      .front_para {
+        color: rgba(255, 255, 255, 0.7);
+
+        @include text-type(normal, 16px);
+      }
+    }
+  }
+
+  @include skill-bar-style;
+}
+
+// back_page
+.back_end_skill{
+  background: $backgroundColor;
+  flex-grow: 1;
+
+  @include container-stytle;
+
+  .row{
+    padding: 20px;
+  }
+  @include headline_box_stytle;
+
+
+  .hero {
+    @include hero-style(100px, 100px);
+
+    @include breakpoint(ipad) {
+      @include hero-style(50px, 50px, center);
+    }
+
+    @include breakpoint(mobile) {
+      @include hero-style(30px, 30px, center);
+    }
+  }
+
+  .hero-light{
+    background-color: $herolightColor;
+  }
+
+  .page_title{
+    color: $fontColor;
+    @include text-type(block, 55px);
+
+    @include breakpoint (ipad){
+      @include text-type(block, 45px);
+    }
+
+    @include breakpoint (mobile){
+      @include text-type(block, 35px);
+    }
+  }
+
+  .row{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+
+    margin: 0 -16px;
+    padding: 20px;
+    @include breakpoint(ipad) {
+      .back_end_skill .container [class^="col-"] .front-wrapper:last-child{
+        margin-bottom: 40px;
+      }
+    }
+    @include headline_box_stytle;
+  }
+  .back-wrapper{
+    display: inline-flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+    margin-bottom: 20px;
+
+    .back-image{
+      display: flex;
+
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: center;
+
+      img{
+        padding-right: 10px;
+
+        @include background-center;
+      }
+    }
+    .back-text-group{
+      display: inline-flex;
+      flex-wrap: nowrap;
+
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+
+      .back_name{
+        color: $fontColor;
+
+        @include text-type(normal, 18px);
+      }
+      .back_para {
+        color: rgba(255, 255, 255, 0.7);
+
+        @include text-type(normal, 16px);
+      }
+    }
+  }
+  @include skill-bar-style;
+}
+
+/* portfolio */
+
+.portfolio {
+	background: $backgroundColor;
+  flex-grow: 1;
+  .hero {
+    @include hero-style(100px, 100px);
+
+    @include breakpoint(ipad) {
+      @include hero-style(50px, 50px, center);
+    }
+
+    @include breakpoint(mobile) {
+      @include hero-style(30px, 30px, center);
+    }
+  }
+
+  .hero-light{
+    background-color: $herolightColor;
+  }
+
+  @include container-stytle;
+
+
+  .page_title{
+    color: $fontColor;
+    @include text-type(block, 55px);
+
+    @include breakpoint (ipad){
+      @include text-type(block, 45px);
+    }
+
+    @include breakpoint (mobile){
+      @include text-type(block, 35px);
+    }
+  }
+
+    .row{
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0;
+      padding: 20px;
+      align-content: space-around;
+      justify-content: space-around;
+      flex-direction: column;
+
+      @include headline_box_stytle;
+
+    }
+    .portfolio_category{
+      padding-bottom: 20px;
+
+      @include breakpoint(ipad){
+        text-align: center;
+      }
+      .category_list li {
+        display: inline-block;
+        margin-right: 40px;
+      }
+    }
+    .portfolio_select select{
+      background: $backgroundColor;
+      color: #555;
+      margin: 6px auto;
+      height: 45px;
+      /* padding: 8px; */
+
+      border-radius: 5px;
+      border: 2px solid #555;
+
+      display: none;
+    }
+
+    @media screen and (max-width: 690px) {
+      .portfolio_category{
+        margin: 0 auto;
+      }
+
+      .portfolio_category .category_list{
+        display: none;
+      }
+
+      .portfolio_select select{
+        display: inline-block;
+        text-align: center;
+      }
+    }
+    .galerie_group{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-content: space-around;
+      justify-content: space-between;
+
+      .img-container{
+        display: 	inline-block;
+        width: 420px;
+        height: 270px;
+        margin: 0 auto;
+
+        @include breakpoint(ipad){
+          width: 200px;
+          height: 200px;
+          margin: 0 auto;
+        }
+
+        .image{
+          position: absolute;
+          left: 0;
+          top: 0;
+          right: 0;
+          bottom: 0;
+
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+
+          border-radius: 30px;
+          margin: 10px;
+
+          @include breakpoint(mobile){
+            border-radius: 10px;
+          }
+        }
+      }
+    }
+
+}
+
+
+
+/* contact */
+.contact{
+	background: #222;
+  flex-grow: 1;
+
+  .hero {
+    @include hero-style(100px, 100px);
+
+    @include breakpoint(ipad) {
+      @include hero-style(50px, 50px, center);
+    }
+
+    @include breakpoint(mobile) {
+      @include hero-style(30px, 30px, center);
+    }
+
+    .page_title{
+      color: $fontColor;
+      @include text-type(block, 55px);
+
+      @include breakpoint (ipad){
+        @include text-type(block, 45px);
+      }
+
+      @include breakpoint (mobile){
+        @include text-type(block, 35px);
+      }
+    }
+  }
+
+  .hero-light{
+    background-color: $herolightColor;
+  }
+
+  @include container-stytle;
+
+  .map-container{
+    margin: 26px auto;
+    width: 100%;
+    padding-top: 10%;
+
+    @include breakpoint(ipad){
+      height: 200px;
+    }
+    iframe{
+
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+
+    }
+  }
+
+  .contact-wrapper{
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    flex-direction: row;
+
+    width: 100%;
+
+    .contact-item{
+      display: inline-flex;
+      margin-bottom: 20px;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      align-items: center;
+
+      .contact-image{
+        display: flex;
+
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        align-items: center;
+
+        width:25%;
+        padding-right: 10px;
+        img {
+          padding-right: 10px;
+
+        @include background-center;
+        }
+      }
+
+      .contact-text-group {
+        display: inline-flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        width: 75%;
+
+
+        .contact_name {
+          color: $fontColor;
+          @include text-type(block, 20px);
+        }
+
+        .contact_para{
+          color: rgba(255, 255, 255, 0.70);
+          @include text-type(block, 18px);
+        }
+      }
+    }
+  }
+  @include headline_box_stytle;
+/* contact_form */
+
+  .contact_form{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .form_item input{
+      margin: 12px auto;
+      width: 100%;
+      height: 53px;
+      /* padding: 8px; */
+      background: $backgroundColor;
+      color: $fontColor;
+
+      border-radius: 5px;
+      border: 2px solid #555;
+    }
+
+  }
+  .contact_loation select {
+    background: $backgroundColor;
+    color: #777;
+    margin: 6px auto;
+    width: 100%;
+    height: 53px;
+    padding: 8px;
+
+    border-radius: 5px;
+    border: 2px solid #555;
+
+  /* 	appearance 屬性的使用時機有兩種：
+
+  替元素套用瀏覽器專屬的預設樣式，或是
+  替元素移除掉瀏覽器專屬的預設樣式 */
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    /* icon */
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M7%2010l5%205%205-5z%22%2F%3E%3C%2Fsvg%3E"), linear-gradient(#222, #222);
+    /* 打開樣式 */
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M7%2010l5%205%205-5z%22%2F%3E%3C%2Fsvg%3E"), -webkit-linear-gradient(#222, #222);
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M7%2010l5%205%205-5z%22%2F%3E%3C%2Fsvg%3E"), -moz-linear-gradient(#222, #222);
+    // 用em調整絕對位置
+    background-position: right 0.5em top 50%, 0 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  option {
+    appearance: none;
+    background: $backgroundColor;
+    position: absolute;
+  }
+  .form_text {
+    margin: 12px auto;
+    width: 100%;
+    background: $backgroundColor;
+    color: $fontColor;
+
+    border-radius: 5px;
+    border: 2px solid #555;
+    height: 300%;
+
+    resize: none;
+  }
+  .contact_btn{
+
+    display: block;
+    margin-top:27px;
+    width: 160px;
+    height: 62px;
+    border-radius: 30px;
+    border: 3px solid $primaryColor;
+    background: #333;
+    cursor: pointer;
+    color:  #777;
+
+    transition: all 0.3s;
+
+    &:hover{
+      color: $fontColor;
+    }
+
+    @include breakpoint(ipad){
+      margin: 0 auto;
+    }
+
+    @include breakpoint(modile){
+      margin: 0 auto;
+    }
+
+  }
+  .contact_btn input{
+    color: $fontColor;
+    @include text-type(normal ,20px);
+  }
+}
+
+// footer
+.footer{
+  background-color: #222;
+	padding: 20px;
+
+  .container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: space-around;
+
+    padding: -20px;
+    border-top: 2px solid #444;
+
+    @include breakpoint(ipad){
+      flex-direction:  column;
+      align-items: center;
+    }
+
+    .footer_group {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-between;
+
+      @include breakpoint(ipad){
+        flex-direction: column;
+        align-items: center;
+      }
+
+      li{
+        display: inline-block;
+        margin: 0 20px;
+        @include breakpoint(mobile){
+
+          margin: 0;
+          width: 100%;
+          text-align: center;
+
+        }
+
+        .nav-link{
+          color: $noactiveColor;
+          @include text-type(normal, 16px);
+          transition: all 0.3s;
+
+          &:hover{
+            color: $fontColor;
+          }
+        }
+      }
+    }
+    .copyright{
+      color: rgba(255, 255, 255, 0.8);
+      margin: 0 20px;
+
+      @include text-type(normal, 16px);
+
+      @include breakpoint(mobile){
+        margin: 0;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}
