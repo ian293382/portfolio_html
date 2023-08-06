@@ -113,7 +113,7 @@
                   </div>
                   <div class="front-text-group">
                     <h4 class="skills_name">HTML, CSS,Scss </h4>
-                      <p class="skills_para">for a simple sentance</p>
+                      <p class="skills_para">前端基礎版面切版，以flex為排版基礎做切版</p>
                   </div>
                 </div>
 
@@ -122,8 +122,8 @@
                     <img src="images/front_end_skill/sass_image_rb.png" alt="">
                   </div>
                   <div class="front-text-group">
-                    <h4 class="skills_name">HTML, CSS,Scss </h4>
-                      <p class="skills_para">for a simple sentance</p>
+                    <h4 class="skills_name">JavaScript, Jquery </h4>
+                      <p class="skills_para">動畫,char.js運用,畫面特效</p>
                   </div>
                 </div>
 
@@ -145,7 +145,7 @@
                   </div>
                   <div class="front-text-group">
                     <h4 class="skills_name">Ruby </h4>
-                      <p class="skills_para">for a simple sentance</p>
+                      <p class="skills_para">簡易的CRU, 測試用的Rspec ,匯入匯出表單。</p>
                   </div>
                 </div>
 
@@ -155,7 +155,7 @@
                   </div>
                   <div class="front-text-group">
                     <h4 class="skills_name">Mysql </h4>
-                      <p class="skills_para">for a simple sentance</p>
+                      <p class="skills_para">簡單的使用資料庫,以及連線</p>
                   </div>
                 </div>
 
@@ -189,22 +189,22 @@
                   <div class="portfolio_category">
                     <ul class="category_list">
                       <li class="nav_item">
-                        <a href="#!" class="nav-link">All</a>
+                        <a href="#!" class="nav-link" onclick="fillterData('All')">All</a>
                       </li>
 
                       <li class="nav_item">
-                        <a href="#!" class="nav-link">Web</a>
+                        <a href="#!" class="nav-link" onclick="fillterData('Web')">Web</a>
                       </li>
 
                       <li class="nav_item">
-                        <a href="#!" class="nav-link">Work</a>
+                        <a href="#!" class="nav-link" onclick="fillterData('Work')">Work</a>
                       </li>
 
 
                     </ul>
 
                     <div class="portfolio_select form_item">
-                      <select class="galerie-item">
+                      <select class="galerie-item" onchange="filterData()">
                         <option value="" selected disabled>galerie</option>
                         <option value="All">All</option>
                         <option value="Web">Web</option>
@@ -216,27 +216,27 @@
                 </div>
 
                 <div class="galerie_group">
-                  <div class="col-lg-6 col-md-12 col-sm-12">
+                  <div class="col-lg-6 col-md-12 col-sm-12 Web">
                     <div class="img-container">
-                      <div class="image" style="background-image: url(images/portfolio/Portolio_page_01.png);"></div>
+                      <div class="image" style="background-image: url(images/portfolio/work/work_1.png);"></div>
                     </div>
                   </div>
 
-                  <div class="col-lg-6 col-md-12 col-sm-12">
+                  <div class="col-lg-6 col-md-12 col-sm-12 Web">
                     <div class="img-container">
-                      <div class="image" style="background-image: url(images/portfolio/Portolio_page_02.png);"></div>
+                      <div class="image" style="background-image: url(images/portfolio/work/work_2.png);"></div>
                     </div>
                   </div>
 
-                  <div class="col-lg-6 col-md-12 col-sm-12">
+                  <div class="col-lg-6 col-md-12 col-sm-12 Web">
                     <div class="img-container">
-                      <div class="image" style="background-image: url(images/portfolio/Portolio_page_02.png);"></div>
+                      <div class="image" style="background-image: url(images/portfolio/work/work_4.png);"></div>
                     </div>
                   </div>
 
-                  <div class="col-lg-6 col-md-12 col-sm-12">
+                  <div class="col-lg-6 col-md-12 col-sm-12 Work">
                     <div class="img-container">
-                      <div class="image" style="background-image: url(images/portfolio/Portolio_page_01.png);"></div>
+                      <div class="image" style="background-image: url(images/portfolio/work/job_1.png);"></div>
                     </div>
                   </div>
 
@@ -253,15 +253,14 @@
         <div class="container">
             <h2 class="page_title">Contact</h2>
 
-            <div class="container">
               <div class="row">
 
                 <div class="contact-wrapper">
-                  <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-4 col-md-12 col-sm-12">
 
                     <div class="contact-item">
                       <div class="contact-image">
-                        <img src="images/contact/phone.png" alt="">
+                        <img src="images/contact/phone_rb.png" alt="">
                       </div>
                       <div class="contact-text-group">
                         <h4 class="contact_name">0978 233 547</h4>
@@ -269,31 +268,38 @@
                       </div>
                     </div>
 
-                    <div class="contact-item">
-                      <div class="contact-image">
-                        <img src="images/contact/location.png" alt="">
-                      </div>
+
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12"> <div class="contact-item">
+                    <div class="contact-image">
+                      <img src="images/contact/location_rb.png" alt="">
+                    </div>
                       <div class="contact-text-group">
                         <h4 class="contact_name">Taiwan Hsinchu</h4>
                         <p class="contact_para">Taipei , Taoyuan , Hsinchu.</p>
                       </div>
                     </div>
-
+                  </div>
+                  <div class="col-lg-4 col-md-12 col-sm-12">
                     <div class="contact-item">
                       <div class="contact-image">
-                        <img src="images/contact/email.png" alt="">
+                        <img src="images/contact/email_rb.png" alt="">
                       </div>
                       <div class="contact-text-group">
                         <h4 class="contact_name">moshou5571228@gmail.com</h4>
                       <p class="contact_para">It's better to contact me by mail.</p>
                       </div>
                     </div>
+
                   </div>
+
+
 
                 </div>
 
               </div>
-            </div>
+
           </div>
       </div>
 
@@ -344,6 +350,10 @@ $(document).ready(function(){
     $('.navbar .nav').removeClass('active');
   })
 })
+
+// select bar
+
+
 
 </script>
 </html>
