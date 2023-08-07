@@ -98,7 +98,6 @@
     <section class="skills">
       <div class="hero hero-light">
         <div class="container">
-          <div class="animate__animated animate__fadeInLeft">
             <h2 class="page_title skills">Skills</h2>
 
             <div class="row">
@@ -166,7 +165,7 @@
 
 
             </div>
-          </div>
+
 
 
         </div>
@@ -247,6 +246,8 @@
                   </div>
                 </div>
               </div>
+
+
         </div>
       </div>
 
@@ -255,7 +256,7 @@
     <section class="contact">
       <div class="hero hero-light">
         <div class="container">
-          <div class="animate__animated animate__backInUp">
+
             <h2 class="page_title">Contact</h2>
 
             <div class="row">
@@ -300,7 +301,7 @@
                 </div>
               </div>
             </div>
-          </div>
+
 
 
         </div>
@@ -404,7 +405,34 @@ $(document).ready(function () {
   });
 //sroll animate
 
+$(document).ready(function () {
+  $(window).on('scroll', function () {
+    const scrollPosition = $(this).scrollTop();
+    console.log('滾動數值:', scrollPosition);
+  });
+});
 
+$(document).ready(function () {
+  $(window).on('scroll', function () {
+    const scrollPosition = $(this).scrollTop();
+
+    // 添加滾動到 400 時的動畫類
+    if (scrollPosition >= 400) {
+      $('.skills').addClass('animate__animated animate__fadeInLeft animate__delay 1s').show();
+      $('.portfolio').addClass('animate__animated animate__fadeInRight animate__delay 3s').show();
+    } else {
+      $('.skills').removeClass('animate__animated animate__fadeInLeft animate__delay 1s').show();
+      $('.portfolio').removeClass('animate__animated animate__fadeInRight animate__delay 3s').show();
+    }
+
+    // 添加滾動到 1300 時的動畫類
+    if (scrollPosition >= 1300) {
+      $('.contact').addClass('animate__animated animate__backInUp').show();
+    } else {
+      $('.contact').removeClass('animate__animated animate__backInUp').show();
+    }
+  });
+});
 
 </script>
 </html>
