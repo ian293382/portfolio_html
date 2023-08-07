@@ -35,40 +35,36 @@
 
           <ul id="popup-menu" class="nav">
             <li class="nav-item">
-              <a href="index.html" class="nav-link">Domů</a>
+              <a href="index.html#home" class="nav-link">Home</a>
             </li>
 
             <li class="nav-item">
-              <a href="front_end_skill.html" class="nav-link">Front-end skills</a>
+              <a href="index.html#skills" class="nav-link">Skills</a>
             </li>
 
             <li class="nav-item">
-              <a href="back_end_skill.html" class="nav-link">Back-end skills</a>
+              <a href="index.html#portfolio" class="nav-link">Portfolio</a>
             </li>
 
             <li class="nav-item">
-              <a href="portfolio.html" class="nav-link">Portfolio</a>
-            </li>
-
-            <li class="nav-item">
-              <a href="contact.html" class="nav-link">Kontakt</a>
+              <a href="index.html#contact" class="nav-link">Kontakt</a>
             </li>
 
             <li>
               <a href="#!" class="close-btn">
-                <img src="images/close.png" alt="Close">
+                <img src="images/close_rb.png" alt="Close">
               </a>
             </li>
           </ul>
 
           <a href="#!" class="menu-toggle">
-            <img src="images/dropdown.png" alt="popup-menu">
+            <img src="images/dropdown_rb.png" alt="popup-menu">
           </a>
         </div>
       </div>
     </header>
 
-    <section class="main">
+    <section id="home" class="main">
       <div class="container">
         <div class="row">
           <div class="col-lg-4 col-md-12">
@@ -83,8 +79,8 @@
               <p class="para">一個好奇心強且熱愛學習新知識和體驗的人。對於網頁開發充滿熱情，嘗試創建吸引人且具競爭力的網站專案。如果您對我的資歷感興趣，請隨時與我聯繫!</p>
 
                 <div class="btn-group">
-                  <a href="portfolio.html" class="btn btn-primary">Portifolio</a>
-                  <a href="contact.html" class="btn btn-normal">Kontakt</a>
+                  <a href="index.html#portfolio" class="btn btn-primary">Portifolio</a>
+                  <a href="index.html#contact" class="btn btn-normal">Kontakt</a>
                 </div>
             </div>
 
@@ -95,7 +91,7 @@
 
     </section>
 
-    <section class="skills">
+    <section id="skills" class="skills">
       <div class="hero hero-light">
         <div class="container">
             <h2 class="page_title skills">Skills</h2>
@@ -128,7 +124,6 @@
                       <p class="skills_para">動畫,char.js運用,畫面特效</p>
                   </div>
                 </div>
-
 
               </div>
 
@@ -163,11 +158,7 @@
 
               </div>
 
-
             </div>
-
-
-
         </div>
       </div>
 
@@ -175,7 +166,7 @@
 
 
 
-    <section class="portfolio">
+    <section id="portfolio" class="portfolio">
       <div class="hero">
         <div class="container">
             <h2 class="page_title">Portfolio</h2>
@@ -253,7 +244,7 @@
 
     </section>
 
-    <section class="contact">
+    <section id="contact" class="contact">
       <div class="hero hero-light">
         <div class="container">
 
@@ -294,7 +285,7 @@
                     </div>
                     <div class="contact-text-group">
                       <h4 class="contact_name">moshou5571228@gmail.com</h4>
-                    <p class="contact_para">It's better to contact me by mail.</p>
+                    <p class="contact_para">It's the best way to contact me by mail.</p>
                     </div>
                   </div>
 
@@ -413,15 +404,31 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+
+  // 導覽列的變化 偵測視窗滾動事件
+	$(window).scroll(function(){
+		// 抓取滾動距離
+		scrolledPx = $(this).scrollTop(); // 存取距離上方的值
+		if (scrolledPx >= 200){ // 條件判斷
+			$('.navbar').addClass('active'); // 加上 "active" class
+		} else {
+			$('.navbar').removeClass('active'); // 移除 "active" class
+		}
+	})
+
   $(window).on('scroll', function () {
     const scrollPosition = $(this).scrollTop();
 
     // 添加滾動到 400 時的動畫類
-    if (scrollPosition >= 400) {
+    if (scrollPosition >= 250) {
       $('.skills').addClass('animate__animated animate__fadeInLeft animate__delay 1s').show();
-      $('.portfolio').addClass('animate__animated animate__fadeInRight animate__delay 3s').show();
     } else {
       $('.skills').removeClass('animate__animated animate__fadeInLeft animate__delay 1s').show();
+    }
+
+    if (scrollPosition >= 350) {
+      $('.portfolio').addClass('animate__animated animate__fadeInRight animate__delay 3s').show();
+    } else {
       $('.portfolio').removeClass('animate__animated animate__fadeInRight animate__delay 3s').show();
     }
 
@@ -434,5 +441,18 @@ $(document).ready(function () {
   });
 });
 
+$(document).ready(function() {
+  $('.nav-link').on('click', function(event) {
+
+    const target = $(this).attr('href'); // 獲取目標元素的ID
+
+    if (target === 'index.html#home'|| target === 'index.html#skills'|| target === 'index.html#contact' || target === 'index.html#portfolio') {
+      $('#popup-menu').removeClass('active'); // 移除彈跳視窗的顯示
+
+    }
+  });
+
+  // 其他鏈接的點擊處理...
+});
 </script>
 </html>

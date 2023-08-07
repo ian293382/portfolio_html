@@ -18,6 +18,8 @@ html {
    */
 body {
   margin: 0;
+  /* 使用滑動effect */
+  scroll-behavior: smooth;
 }
 
 /**
@@ -761,7 +763,18 @@ a {
   background: #222;
   padding-top: 10px;
   padding-bottom: 10px;
+
   /* menutoggle */
+}
+.navbar.active{
+	background-color: rgba(0, 0, 0, 0.5);
+  padding-top: 0px;
+  padding-bottom: 0px;
+  position: fixed;
+	z-index: 500;
+	width: 100%;
+	left: 0;
+	top: 0;
 }
 .navbar .container {
   max-width: 1296px;
@@ -1166,7 +1179,6 @@ a {
   background: #252525;
   margin: 0px;
 }
-
 
 
 /* main .portfolio */
@@ -1784,7 +1796,7 @@ a {
 }
 .portfolio .galerie_group .img-container {
   display: inline-block;
-  width: 380px;
+  width: 360px;
   height: 270px;
   margin: 0 auto;
 }
